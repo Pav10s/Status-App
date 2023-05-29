@@ -24,3 +24,4 @@ Future<List<Story>> fetchStories() async {
     throw Exception('Failed to fetch stories');
   }
 }
+
