@@ -27,6 +27,7 @@ Future<Map<int, List<Story>>> fetchStories() async {
 
       if (storiesByProfile.containsKey(story.profile.id)) {
         storiesByProfile[story.profile.id]!.add(story);
+        print(storiesByProfile);
       } else {
         storiesByProfile[story.profile.id] = [story];
       }

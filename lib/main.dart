@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:story_app/api/get_status.dart';
 import 'package:story_app/data_model/data_model.dart';
-import 'package:story_app/widget/storylist.dart';
+import 'package:story_app/widget/story_list.dart';
 
 void main() {
   runApp(const MyApp());
