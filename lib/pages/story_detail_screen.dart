@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:story_app/data_model/data_model.dart';
+import 'package:story_app/data_model/story.dart';
 import 'package:story_app/widget/image_widget.dart';
 
 class StoryDetailScreen extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:story_app/data_model/data_model.dart';
+import 'package:story_app/data_model/story.dart';
 
 Widget buildImageorText(List<Story> story, BuildContext context, currentIndex) {
   final currentImage = story[currentIndex].image;

@@ -1,6 +1,8 @@
-import 'package:story_app/data_model/data_model.dart';
+import 'package:story_app/data_model/story.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:story_app/data_model/user_profile.dart';
 
 Future<Map<int, List<Story>>> fetchStories() async {
   final response =

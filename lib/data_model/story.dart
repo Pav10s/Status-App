@@ -1,3 +1,5 @@
+import 'package:story_app/data_model/user_profile.dart';
+
 class Story {
   final int id;
   final String title;
@@ -14,14 +16,3 @@ class Story {
   });
 }
 
-class UserProfile {
-  final int id;
-  final String name;
-  final String image;
-
-  UserProfile({
-    required this.id,
-    required this.name,
-    required this.image,
-  });
-}
