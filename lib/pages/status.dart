@@ -1,43 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:story_app/data_model/data_model.dart';
 
-class StoryDetailScreen extends StatelessWidget {
-  final Story story;
+class StoryDetailScreen extends StatefulWidget {
+  final List<Story> story;
 
   const StoryDetailScreen({super.key, required this.story});
 
   @override
+  State<StoryDetailScreen> createState() => _StoryDetailScreenState();
+}
+
+class _StoryDetailScreenState extends State<StoryDetailScreen> {
+  int currentIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(story.title),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SizedBox(
-            width:
-                MediaQuery.of(context).size.width, // Adjust the width as needed
-            height: MediaQuery.of(context).size.height *
-                0.5, // Adjust the height as needed
-            child: isEmpty(story)
-                ? Image.network(story.image)
-                : Image.network(
-                    'https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'),
+        appBar: AppBar(
+          title: const Text("Stories"),
+        ),
+        body: GestureDetector(
+          onTap: () {
+            setState(() {
+              currentIndex = (currentIndex + 1) % widget.story.length;
+              if (currentIndex == 0) {
+                Navigator.pop(context,true);
+              }
+            });
+          },
+          child: Container(
+            color: Colors.white,
+            child: Center(
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: buildImageorText(widget.story, context, currentIndex),
+              ),
+            ),
           ),
-          const SizedBox(height: 16.0),
-          Text(story.title),
-          // Add more content as needed
-        ],
-      ),
-    );
+        ));
   }
 }
 
-isEmpty(Story story) {
-  if (story.image.isNotEmpty) {
-    return true;
+Widget buildImageorText(List<Story> story, BuildContext context, currentIndex) {
+  final currentImage = story[currentIndex].image;
+  final currentTitle = story[currentIndex].title; 
+  if (currentImage.isNotEmpty) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Image.network(currentImage,
+            fit: BoxFit.cover,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.4),
+        Text(currentTitle)
+      ],
+    );
   } else {
-    return false;
+    return Center(
+      child: Text(currentTitle),
+    );
   }
 }

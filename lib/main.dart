@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Social Media App',
       debugShowCheckedModeBanner: false,
-      home: FutureBuilder<List<Story>>(
+      home: FutureBuilder<Map<int, List<Story>>> (
         future: fetchStories(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {

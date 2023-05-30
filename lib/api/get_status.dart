@@ -2,13 +2,18 @@ import 'package:story_app/data_model/data_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<List<Story>> fetchStories() async {
-  final response = await http.get(Uri.parse('http://my-json-server.typicode.com/shakeebM/StoriesApi/stories'));
+Future<Map<int, List<Story>>> fetchStories() async {
+  final response =
+      await http.get(Uri.parse('http://my-json-server.typicode.com/shakeebM/StoriesApi/stories'));
 
   if (response.statusCode == 200) {
     final List<dynamic> data = jsonDecode(response.body);
-    return data.map((item) {
-      return Story(
+
+    final Map<int, List<Story>> storiesByProfile = {};
+
+    for (var i = 0; i < data.length; i++) {
+      final item = data[i];
+      final story = Story(
         id: item['id'],
         title: item['title'] ?? '',
         readStatus: item['read_status'] ?? false,
@@ -19,9 +24,18 @@ Future<List<Story>> fetchStories() async {
           image: item['profile']['image'] ?? '',
         ),
       );
-    }).toList();
+
+      if (storiesByProfile.containsKey(story.profile.id)) {
+        storiesByProfile[story.profile.id]!.add(story);
+      } else {
+        storiesByProfile[story.profile.id] = [story];
+      }
+    }
+
+    return storiesByProfile;
   } else {
     throw Exception('Failed to fetch stories');
   }
 }
+
 

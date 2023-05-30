@@ -3,7 +3,7 @@ import 'package:story_app/data_model/data_model.dart';
 import 'package:story_app/pages/status.dart';
 
 class StoryListWidget extends StatefulWidget {
-  final List<Story> stories;
+  final Map<int, List<Story>> stories;
 
   const StoryListWidget({Key? key, required this.stories}) : super(key: key);
 
@@ -17,23 +17,27 @@ class _StoryListWidgetState extends State<StoryListWidget> {
     return ListView.builder(
       itemCount: widget.stories.length,
       itemBuilder: (context, index) {
-        final story = widget.stories[index];
+        final profileStories = widget.stories.values.toList()[index];
+        final story = profileStories[0];
+
         return ListTile(
           leading: CircleAvatar(
             backgroundImage: NetworkImage(story.profile.image),
           ),
-          title: Text(story.title),
+          title: Text(story.profile.name),
           onTap: () async {
             // Navigate to the next page
-            await Navigator.push(
+            final statusRead = await Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => StoryDetailScreen(story: story),
+                builder: (context) => StoryDetailScreen(story: profileStories),
               ),
             );
-            
+
             setState(() {
-              story.readStatus = true;
+              if (statusRead != null) {
+                story.readStatus = statusRead;
+              }
             });
           },
           trailing: story.readStatus
