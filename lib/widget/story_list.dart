@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:story_app/data_model/data_model.dart';
-import 'package:story_app/pages/status.dart';
+import 'package:story_app/pages/story_detail_screen.dart';
 
 class StoryListWidget extends StatefulWidget {
   final Map<int, List<Story>> stories;
